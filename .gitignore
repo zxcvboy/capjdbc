@@ -1,0 +1,34 @@
+gen/
+edmx/
+schema.sql
+*.db
+
+bin/
+target/
+.flattened-pom.xml
+.classpath
+.project
+.settings
+
+node/
+node_modules/
+
+.mta/
+*.mtar
+*.tar
+
+*.log*
+gc_history*
+hs_err*
+*.iml
+
+.vscode
+.idea
+
+# added by cds deploy
+default-env.json
+
+
+# added by cds deploy
+connection.properties
+
