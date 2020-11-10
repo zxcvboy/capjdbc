@@ -1,0 +1,10 @@
+import { EntityBase, Constructable } from '../common';
+import { CustomField } from './selectable/custom-field';
+/**
+ * Super class for all representations of OData entity types.
+ */
+export declare class Entity extends EntityBase {
+    protected static customFieldSelector<EntityT extends EntityBase>(fieldName: string, entityConstructor: Constructable<EntityT>): CustomField<EntityT>;
+    readonly _oDataVersion: 'v2';
+}
+//# sourceMappingURL=entity.d.ts.map

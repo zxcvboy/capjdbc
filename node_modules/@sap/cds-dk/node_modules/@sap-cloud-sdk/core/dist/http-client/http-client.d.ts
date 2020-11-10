@@ -1,0 +1,49 @@
+import { MapType } from '@sap-cloud-sdk/util';
+import { Destination, DestinationNameAndJwt } from '../scp-cf';
+import { DestinationHttpRequestConfig, ExecuteHttpRequestFn, HttpRequestConfig, HttpResponse } from './http-client-types';
+/**
+ * Builds a [[DestinationHttpRequestConfig]] for the given destination.
+ * If a destination name (and a JWT) are provided, it will try to resolve the destination.
+ *
+ * @param destination - A destination or a destination name and a JWT.
+ * @param customHeaders - Custom default headers for the resulting HTTP request.
+ * @returns A [[DestinationHttpRequestConfig]].
+ */
+export declare function buildHttpRequest(destination: Destination | DestinationNameAndJwt, customHeaders?: MapType<any>): Promise<DestinationHttpRequestConfig>;
+/**
+ * Builds a [[DestinationHttpRequestConfig]] for the given destination
+ * and then merges it into the given request configuration.
+ * Setting of the given request configuration take precedence over any destination related configuration.
+ *
+ * @param destination - A destination or a destination name and a JWT.
+ * @param requestConfig - Any object representing an HTTP request.
+ * @returns The given request config merged with the config built for the given destination.
+ */
+export declare function addDestinationToRequestConfig<T extends HttpRequestConfig>(destination: Destination | DestinationNameAndJwt, requestConfig: T): Promise<T & DestinationHttpRequestConfig>;
+/**
+ * Takes as paramter a function that expects an [[HttpRequest]] and returns a Promise of [[HttpResponse]].
+ * Returns a function that takes a destination and a request, builds an [[HttpRequest]] from them, and calls
+ * the provided execute function.
+ *
+ * NOTE: If you simply want to execute a request without passing your own execute function, use [[executeHttpRequest]] instead!
+ *
+ * @param executeFn - A function that can execute an [[HttpRequestConfig]].
+ * @returns A function expecting destination and a request.
+ */
+export declare function execute(executeFn: ExecuteHttpRequestFn): <T extends HttpRequestConfig>(destination: Destination | DestinationNameAndJwt, requestConfig: T) => Promise<HttpResponse>;
+/**
+ * Builds a [[DestinationHttpRequestConfig]] for the given destination, merges it into the given requestConfig
+ * and executes it (using Axios).
+ *
+ * @param destination - A destination or a destination name and a JWT.
+ * @param requestConfig - Any object representing an HTTP request.
+ * @returns An [[HttpResponse]].
+ */
+export declare const executeHttpRequest: <T extends HttpRequestConfig>(destination: Destination | DestinationNameAndJwt, requestConfig: T) => Promise<HttpResponse>;
+/**
+ * Builds an Axios config with default configuration i.e. no_proxy, default http and https agent and GET as request method.
+ *
+ * @returns AxiosRequestConfig with default parameters
+ */
+export declare function getAxiosConfigWithDefaults(): HttpRequestConfig;
+//# sourceMappingURL=http-client.d.ts.map

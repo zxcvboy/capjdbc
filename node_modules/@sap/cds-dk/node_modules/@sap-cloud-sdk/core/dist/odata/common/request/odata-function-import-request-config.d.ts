@@ -1,0 +1,27 @@
+import { MapType } from '@sap-cloud-sdk/util';
+import { ODataUri } from '../uri-conversion';
+import { FunctionImportParameters } from './function-import-parameter';
+import { ODataRequestConfig, RequestMethodType } from './odata-request-config';
+/**
+ * @experimental This is experimental and is subject to change. Use with caution.
+ * OData function import request configuration for a set of parameters.
+ *
+ * @typeparam ParametersT - Type of the original parameters object
+ */
+export declare class ODataFunctionImportRequestConfig<ParametersT> extends ODataRequestConfig {
+    readonly functionImportName: string;
+    parameters: FunctionImportParameters<ParametersT>;
+    private oDataUri;
+    /**
+     * Creates an instance of ODataFunctionImportRequestConfig.
+     *
+     * @param method - HTTP method for the request
+     * @param defaultServicePath - Default path of the service
+     * @param functionImportName - The name of the function import.
+     * @param parameters - Object containing the parameters with a value and additional meta information
+     */
+    constructor(method: RequestMethodType, defaultServicePath: string, functionImportName: string, parameters: FunctionImportParameters<ParametersT>, oDataUri: ODataUri);
+    resourcePath(): string;
+    queryParameters(): MapType<any>;
+}
+//# sourceMappingURL=odata-function-import-request-config.d.ts.map

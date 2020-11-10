@@ -1,0 +1,65 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = capjdbc
+## language=java; multiTenant=false
+## approuter=
+_schema-version: "3.1"
+ID: capjdbc
+version: 1.0.0
+description: "capjdbc application"
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+        - npx -p @sap/cds-dk cds build --production
+
+modules:
+  # --------------------- SERVER MODULE ------------------------
+  - name: capjdbc-srv
+    # ------------------------------------------------------------
+    type: java
+    path: srv
+    build-parameters:
+      builder: custom
+      commands: [mvn clean package]
+      build-result: "target/*.[wj]ar"
+    requires:
+      - name: capjdbc-xsuaa
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+  - name: capjdbc-approuter
+    type: nodejs
+    path: approuter
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: dest-capjdbc
+          url: ~{srv-url}
+          forwardAuthToken: true          
+      - name: capjdbc-xsuaa 
+    provides:
+      - name: app-url
+        properties:
+          url: '${default-url}' 
+resources:
+### XSUAA service instance      
+  - name: capjdbc-xsuaa
+    parameters:
+      path: ./xs-security.json  
+      service: xsuaa    
+      service-plan: application
+      service-keys: 
+        - name: capjdbc-xsuaa-key      
+    type: com.sap.xs.uaa   
+### Connectivity service instance      
+  - name: conn-lite 
+    type: connectivity  

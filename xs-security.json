@@ -1,0 +1,21 @@
+{
+  "xsappname": "capjdbc",
+  "tenant-mode": "dedicated",
+ "scopes": [
+    {
+      "name": "$XSAPPNAME.zadmin",
+      "description": "zadmin"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "zadmin",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.zadmin"
+      ],
+      "attribute-references": []
+    }
+  ]
+}  

@@ -1,0 +1,29 @@
+const { isPathSupported } = require('./selectHelper')
+const { convertUrlPathToCqn } = require('./utils')
+const SUPPORTED_SEGMENT_KINDS = [
+  'BOUND.ACTION',
+  'BOUND.FUNCTION',
+  'ENTITY',
+  'ENTITY.COLLECTION',
+  'NAVIGATION.TO.ONE',
+  'NAVIGATION.TO.MANY',
+  'PRIMITIVE.PROPERTY',
+  'COUNT'
+]
+
+/**
+ * Transform odata bound action or functiuon request into a CQN object.
+ *
+ * @param {Object} service - Service, which will process this request.
+ * @param {object} context - Contains request information and utility methods like statements.
+ * @param {object} req - An odata request.
+ * @private
+ */
+const boundToCQN = (service, { statements: { SELECT }, target }, req) => {
+  const segments = req.getUriInfo().getPathSegments()
+  isPathSupported(SUPPORTED_SEGMENT_KINDS, segments)
+
+  return SELECT.from(convertUrlPathToCqn(segments.slice(0, segments.length - 1)))
+}
+
+module.exports = boundToCQN

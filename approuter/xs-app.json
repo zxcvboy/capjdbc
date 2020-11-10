@@ -1,0 +1,13 @@
+{
+    "authenticationMethod":"route",
+    "routes": [
+        {
+            "source": "^/(.*)$",
+            "target": "$1",
+            "authenticationType": "xsuaa",
+            "destination": "dest-capjdbc",           
+            "csrfProtection": false
+            
+        }
+    ]
+}

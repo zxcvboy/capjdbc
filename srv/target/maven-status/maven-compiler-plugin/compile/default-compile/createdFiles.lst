@@ -1,0 +1,7 @@
+customer/capjdbc/ConnectivitySocks5ProxySocket.class
+customer/capjdbc/Application.class
+customer/capjdbc/DynamicApp.class
+customer/capjdbc/DummySocketFactory.class
+customer/capjdbc/MyController.class
+customer/capjdbc/MyWebSecurityConfig.class
+customer/capjdbc/InvalidSocketFactory.class
